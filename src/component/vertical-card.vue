@@ -33,9 +33,15 @@ export default {
   &:hover {
     box-shadow: 0 0 15px #000;
     transform: translate(0, -10%) rotate(5deg);
+    background-color: #fff;
 
-    .vertical-card-bg {
-      opacity: 1;
+    a {
+      .vertical-card-header {
+        p {
+          opacity: 1;
+          transition: 0.5s;
+        }
+      }
     }
   }
   &:nth-of-type(4n + 1) {
@@ -51,6 +57,11 @@ export default {
 
     .vertical-card-header {
       padding: 10px;
+
+      p {
+        opacity: 0;
+        transition: 1s;
+      }
     }
   }
   .vertical-card-bg {

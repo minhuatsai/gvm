@@ -3,21 +3,22 @@
     <Header
       :logoImgSrc="headerData.logoImgSrc"
       :headerList="headerData.headerList"
+      :scrollAnimateOption="headerData.scrollAnimateOption"
     ></Header>
     <VueSlickCarousel
-      :arrows="true"
+      :arrows="false"
       :dots="true"
       :adaptiveHeight="true"
       :autoplay="true"
     >
       <img src="../assets/img/carousel-health.jpg" />
+      <img src="../assets/img/carousel-sport.jpg" />
       <img src="../assets/img/carousel-health.jpg" />
-      <img src="../assets/img/carousel-health.jpg" />
-      <img src="../assets/img/carousel-health.jpg" />
+      <img src="../assets/img/carousel-sport.jpg" />
     </VueSlickCarousel>
     <!-- <Carousel v-bind:carouselData="carouselData"></Carousel> -->
     <div class="home-container-body">
-      <div class="block-section">
+      <div class="block-section" id="news-block-section">
         <h1>最新文章</h1>
         <div class="block-section-content">
           <div class="campaign-list">
@@ -29,7 +30,7 @@
           </div>
         </div>
       </div>
-      <div class="landing-page-section">
+      <!-- <div class="landing-page-section">
         <div class="landing-page-article">
           <div class="landing-page-article-slogan">
             <p class="font-weight-bold">Gogoro Network</p>
@@ -54,7 +55,7 @@
             /></a>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <div class="media-section">
         <SimpleIntroduction
@@ -192,13 +193,17 @@ export default {
     return {
       headerData: {
         logoImgSrc: imgLogo,
+        scrollAnimateOption: {
+          offset: -100,
+        },
         headerList: [
           {
             text: "最新文章",
             link: {
               type: "absolute",
-              href: "https://www.gogoro.com/smartscooter/",
+              href: "#news-block-section",
             },
+            iconName: "flag",
           },
           {
             text: "醫療百科",
@@ -206,6 +211,7 @@ export default {
               type: "absolute",
               href: "https://www.gogoro.com/gogoro-network/",
             },
+            iconName: "heartbeat",
           },
           {
             text: "癌症知識",

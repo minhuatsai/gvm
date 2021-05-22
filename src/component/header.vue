@@ -13,6 +13,11 @@
             v-if="list.link.type === 'absolute'"
             :href="list.link.href"
             :style="headerColorAdject"
+            v-scroll-to="
+              scrollAnimateOption
+                ? { el: list.link.href, ...scrollAnimateOption }
+                : list.link.href
+            "
             >{{ list.text }}
           </a>
           <router-link
@@ -23,20 +28,47 @@
           >
         </li>
       </ul>
+      <Slide
+        right
+        :closeOnNavigation="true"
+        :class="{ hasbg: this.headerBackgroundOpacity === 1 }"
+        @openMenu="handleOpenMenu"
+        @closeMenu="handleCloseMenu"
+      >
+        <a
+          v-for="(litItem, listIndex) in headerList"
+          v-scroll-to="
+            scrollAnimateOption
+              ? { el: litItem.link.href, ...scrollAnimateOption }
+              : litItem.link.href
+          "
+          class="slide-list"
+          :class="{ active: bergerMenuIsOpen }"
+          :href="litItem.link.href"
+          :key="'slide-list' + listIndex"
+        >
+          <span>
+            <v-icon v-if="litItem.iconName" :name="litItem.iconName"></v-icon>
+            {{ litItem.text }}</span
+          >
+        </a>
+      </Slide>
     </div>
   </div>
 </template>
 <script>
+import { Slide } from "vue-burger-menu";
 export default {
   name: "Header",
-  props: ["logoImgSrc", "headerList"],
-  components: {},
+  props: ["logoImgSrc", "headerList", "scrollAnimateOption"],
+  components: { Slide },
   mounted() {
     window.addEventListener("scroll", this.handleScroll);
   },
   data() {
     return {
       headerBackgroundOpacity: 0,
+      bergerMenuIsOpen: false,
     };
   },
   methods: {
@@ -47,6 +79,14 @@ export default {
         this.headerBackgroundOpacity = window.scrollY / 300;
       }
     },
+    handleOpenMenu() {
+      setTimeout(() => {
+        this.bergerMenuIsOpen = true;
+      }, 300);
+    },
+    handleCloseMenu() {
+      this.bergerMenuIsOpen = false;
+    },
   },
   computed: {
     headerColorAdject() {
@@ -55,6 +95,47 @@ export default {
   },
 };
 </script>
+<style lang="scss">
+.header-container-inner {
+  .bm-menu {
+    background-color: #191919;
+
+    .slide-list {
+      &.active {
+        > span {
+          opacity: 1;
+        }
+      }
+      > span {
+        display: flex;
+        align-items: center;
+        opacity: 0;
+        transition: 0.3s;
+
+        > svg {
+          margin-right: 15px;
+        }
+      }
+    }
+  }
+  .bm-burger-button {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .hasbg {
+    .bm-burger-bars {
+      background-color: #fff;
+    }
+  }
+}
+.header-container {
+  &:hover {
+    .bm-burger-bars {
+      background-color: #fff;
+    }
+  }
+}
+</style>
 <style lang="scss" scoped>
 .header-container {
   position: fixed;
