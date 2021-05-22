@@ -93,4 +93,27 @@ export default {
     }
   }
 }
+
+@media screen and (max-width: 768px) {
+  .simple-introduction-container {
+    .simple-introduction-article {
+      > p {
+        font-size: 20px;
+      }
+    }
+  }
+}
+@media screen and (max-width: 480px) {
+  .simple-introduction-container {
+    width: 100%;
+    margin-left: 0;
+    margin-bottom: 10px;
+
+    .simple-introduction-article {
+      > p {
+        font-size: 20px;
+      }
+    }
+  }
+}
 </style>

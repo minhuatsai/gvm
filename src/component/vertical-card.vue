@@ -106,4 +106,16 @@ export default {
     }
   }
 }
+
+@media screen and (max-width: 480px) {
+  .vertical-card-container {
+    width: 100%;
+    margin-left: 0;
+
+    &:nth-of-type(4n + 1),
+    &:nth-of-type(3n + 1) {
+      margin-left: 0;
+    }
+  }
+}
 </style>

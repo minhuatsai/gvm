@@ -11,10 +11,18 @@
       :adaptiveHeight="true"
       :autoplay="true"
     >
-      <img src="../assets/img/carousel-health.jpg" />
-      <img src="../assets/img/carousel-sport.jpg" />
-      <img src="../assets/img/carousel-health.jpg" />
-      <img src="../assets/img/carousel-sport.jpg" />
+      <template v-for="(listItem, listIndex) in slickCarouselData.list">
+        <img
+          :src="listItem.imgSrc"
+          :key="'slick-carousel-' + listIndex"
+          v-if="slickCarouselData.windowWidth > 768"
+        />
+        <img
+          :src="listItem.mobileImgSrc"
+          :key="'slick-carousel-' + listIndex"
+          v-else
+        />
+      </template>
     </VueSlickCarousel>
     <!-- <Carousel v-bind:carouselData="carouselData"></Carousel> -->
     <div class="home-container-body">
@@ -30,20 +38,16 @@
           </div>
         </div>
       </div>
-      <div style="height: 100vh; overflow: hidden; margin: 10px 0">
-        <div style="height: 100%; overflow: hidden; position: relative">
+      <div class="parallax-section">
+        <div class="parallax-section-article">
           <lottie
             v-parallax="-0.3"
+            class="lottie-heart"
             :options="heartsDefaultOptions"
             :height="400"
             :width="400"
-            style="position: absolute; z-index: 999; right: 0; bottom: 25%"
           />
-          <img
-            style="width: 100%"
-            src="../assets/img/parallax1.jpg"
-            v-parallax="0.6"
-          />
+          <img src="../assets/img/parallax1.jpg" v-parallax="0.6" />
         </div>
       </div>
       <div class="block-section" id="medical-block-section">
@@ -58,30 +62,18 @@
           </div>
         </div>
       </div>
-      <div style="height: 100vh; overflow: hidden; margin: 10px 0">
-        <div style="height: 100%; overflow: hidden; position: relative">
-          <div
-            v-parallax="0.7"
-            style="
-              position: absolute;
-              z-index: 999;
-              right: 30px;
-              max-width: 35%;
-            "
-          >
+      <div class="parallax-section">
+        <div class="parallax-section-article">
+          <div v-parallax="0.7" class="parallax-article-block">
             <h1>全台第一間老人醫院2025誕生</h1>
-            <ul style="font-size: 20px">
+            <ul>
               <li>智慧醫療輔助老人，精準個人化醫療</li>
               <li>人工智慧導入醫療，縮短醫療處置時間降風險</li>
               <li>結合智慧建築永續發展，預計2025年底前啟用</li>
               <li>跨領域合作，盼達到適切精準照護</li>
             </ul>
           </div>
-          <img
-            style="width: 100%"
-            src="../assets/img/parallax2.jpg"
-            v-parallax="0.6"
-          />
+          <img src="../assets/img/parallax2.jpg" v-parallax="0.6" />
         </div>
       </div>
       <div class="block-section" id="cancer-block-section">
@@ -161,13 +153,26 @@ import Header from "../component/header";
 // import Carousel from "../component/carousel";
 import VerticalCard from "../component/vertical-card";
 import SimpleIntroduction from "../component/simple-introduction";
-import imgLogo from "../assets/img/logo.png";
-import iconLine from "../assets/img/icon-line.svg";
 import VueSlickCarousel from "vue-slick-carousel";
 import "vue-slick-carousel/dist/vue-slick-carousel.css";
-// optional style for arrows & dots
 import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
 import * as heartsJSON from "../assets/json/hearts.json";
+
+import imgLogo from "../assets/img/logo.png";
+import iconLine from "../assets/img/icon-line.svg";
+import carousel1 from "../assets/img/carousel-health.jpg";
+import carousel2 from "../assets/img/carousel-sport.jpg";
+import mobileCarousel1 from "../assets/img/carousel-health-mobile.jpg";
+import mobileCarousel2 from "../assets/img/carousel-sport-mobile.jpg";
+import campaignList1 from "../assets/img/campaignList1.jpg";
+import campaignList2 from "../assets/img/campaignList2.jpg";
+import campaignList3 from "../assets/img/campaignList3.jpg";
+import campaignList4 from "../assets/img/campaignList4.jpg";
+import campaignList5 from "../assets/img/campaignList5.jpg";
+import campaignList6 from "../assets/img/campaignList6.jpg";
+import campaignList7 from "../assets/img/campaignList7.jpg";
+import campaignList8 from "../assets/img/campaignList8.jpg";
+import campaignList9 from "../assets/img/campaignList9.jpg";
 
 export default {
   name: "Home",
@@ -181,6 +186,7 @@ export default {
   },
   mounted() {
     this.quotesTabsCarouselStart();
+    window.addEventListener("resize", this.onResize);
   },
   data() {
     return {
@@ -219,50 +225,63 @@ export default {
             text: "吃出健康",
             link: {
               type: "absolute",
-              href: "#",
             },
+            iconName: "utensils",
           },
           {
             text: "運動減重",
             link: {
               type: "absolute",
-              href: "#",
             },
+            iconName: "running",
           },
           {
             text: "樂活心靈",
             link: {
               type: "absolute",
-              href: "#",
             },
+            iconName: "heart",
           },
           {
             text: "保養抗老",
             link: {
               type: "absolute",
-              href: "#",
             },
+            iconName: "child",
           },
           {
             text: "品味生活",
             link: {
               type: "absolute",
-              href: "#",
             },
+            iconName: "hands",
           },
           {
             text: "駐站作家",
             link: {
               type: "absolute",
-              href: "#",
             },
+            iconName: "pen-nib",
           },
           {
             text: "主題企劃",
             link: {
               type: "absolute",
-              href: "#",
             },
+            iconName: "clipboard",
+          },
+        ],
+      },
+      slickCarouselData: {
+        windowWidth: window.screen.width,
+        list: [
+          {
+            imgSrc: carousel1,
+            mobileImgSrc: mobileCarousel1,
+          },
+          {
+            imgSrc: carousel2,
+            mobileImgSrc: mobileCarousel2,
           },
         ],
       },
@@ -307,44 +326,39 @@ export default {
       campaignList: [
         {
           target: "_self",
-          href: "",
-          bgImgSrc:
-            "https://imgs.gvm.com.tw/upload/gallery/20210521/thumbnail_M_79603_01.jpg",
+          href: "javascript:void(0)",
+          bgImgSrc: campaignList1,
           title: "無跪姿、床上也能做！7分鐘輕運動鍛鍊大腿肌力",
           description:
             "常常走路膝蓋痛，可以多練習大腿肌力。剛開始怕站著練、或跪著練，膝蓋又痛起來，你可以先…",
         },
         {
           target: "_self",
-          href: "",
-          bgImgSrc:
-            "https://imgs.gvm.com.tw/upload/gallery/20210521/thumbnail_M_79690_01.jpg",
+          href: "javascript:void(0)",
+          bgImgSrc: campaignList2,
           title: "北市推「台版方艙醫院」，柯文哲：防快篩或PCR陽性民眾回流社區",
           description:
             "武漢肺炎本土疫情延燒，台北市長柯文哲今天指出，北市的疫情較嚴重，他成立「加強版專責防…",
         },
         {
           target: "_self",
-          href: "",
-          bgImgSrc:
-            "https://imgs.gvm.com.tw/upload/gallery/20210521/thumbnail_M_79674_01.jpg",
+          href: "javascript:void(0)",
+          bgImgSrc: campaignList3,
           title: "免器材！廚房、浴室都行，在家也可以做的4招美身塑體操",
           description: "免器材！廚房、浴室都行，在家也可以做的4招美身塑體操",
         },
         {
           target: "_self",
-          href: "",
-          bgImgSrc:
-            "https://imgs.gvm.com.tw/upload/gallery/20210521/thumbnail_M_79684_01.jpg",
+          href: "javascript:void(0)",
+          bgImgSrc: campaignList4,
           title: "集中檢疫所收住690名確診個案！加發血氧偵測儀，防病情生變",
           description:
             "武漢肺炎本土疫情嚴峻，指揮中心醫療應變組副組長王必勝今天表示，目前集中檢疫所共收住6…",
         },
         {
           target: "_self",
-          href: "",
-          bgImgSrc:
-            "https://imgs.gvm.com.tw/upload/gallery/20210521/thumbnail_M_79682_01.jpg",
+          href: "javascript:void(0)",
+          bgImgSrc: campaignList5,
           title:
             "新增312例本土病例！陳時中：沒要進入「四級警戒」，勿以訛傳訛！",
           description:
@@ -352,36 +366,32 @@ export default {
         },
         {
           target: "_self",
-          href: "",
-          bgImgSrc:
-            "https://imgs.gvm.com.tw/upload/gallery/20210521/thumbnail_M_79630_01.jpg",
+          href: "javascript:void(0)",
+          bgImgSrc: campaignList6,
           title: "高溫、停電、缺水…小心中暑！居家防疫3招預防室內熱傷害",
           description:
             "近幾日因為疫情已啟動學校停課不停學的措施，且許多企業提升居家辦公比率，宅在家成為時下…",
         },
         {
           target: "_self",
-          href: "",
-          bgImgSrc:
-            "https://imgs.gvm.com.tw/upload/gallery/20210521/thumbnail_M_79670_01.jpg",
+          href: "javascript:void(0)",
+          bgImgSrc: campaignList7,
           title: "開車要戴口罩嗎？指揮中心：獨自一人可不戴",
           description:
             "全台疫情升至第3級警戒，外出須全程戴口罩，但開車「無罩」上路罰不罰掀熱議。指揮中心今…",
         },
         {
           target: "_self",
-          href: "",
-          bgImgSrc:
-            "https://imgs.gvm.com.tw/upload/gallery/20210520/thumbnail_M_79666_01.jpg",
+          href: "javascript:void(0)",
+          bgImgSrc: campaignList8,
           title: "疫情升溫不敢去醫院？5/28前開放視訊看診、開藥，就醫免出門",
           description:
             "武漢肺炎本土疫情升溫，不少民眾不敢外出就醫。健保署今天宣布，全台指定醫療院所即日起至…",
         },
         {
           target: "_self",
-          href: "",
-          bgImgSrc:
-            "https://imgs.gvm.com.tw/upload/gallery/20210520/thumbnail_M_79658_01.jpg",
+          href: "javascript:void(0)",
+          bgImgSrc: campaignList9,
           title: "外食風險高，使用外送平台要注意什麼？居家防疫4原則自保",
           description:
             "因應疫情升級，外出用餐因為要長時間取下口罩，讓風險性提高，也使得許多餐飲通路紛紛禁止…",
@@ -796,6 +806,14 @@ export default {
         this.impactData.animation = "animation-slidein";
       }, 500);
     },
+    onResize() {
+      this.slickCarouselData.windowWidth = window.innerWidth;
+    },
+  },
+  watch: {
+    detectSlickCarouselWidth(newWidth) {
+      this.slickCarouselData.windowWidth = newWidth;
+    },
   },
 };
 </script>
@@ -803,6 +821,11 @@ export default {
 <style lang="scss" scoped>
 h1 {
   font-size: 42px;
+}
+@media screen and (max-width: 768px) {
+  h1 {
+    font-size: 36px;
+  }
 }
 </style>
 
@@ -1015,6 +1038,44 @@ h1 {
         }
       }
     }
+    .parallax-section {
+      height: 100vh;
+      overflow: hidden;
+      margin: 10px 0;
+
+      .parallax-section-article {
+        height: 100%;
+        overflow: hidden;
+        position: relative;
+
+        .lottie-heart {
+          position: absolute;
+          z-index: 999;
+          right: 0;
+          bottom: 25%;
+        }
+        .parallax-article-block {
+          position: absolute;
+          z-index: 999;
+          right: 30px;
+          max-width: 35%;
+
+          h1 {
+            margin-bottom: 20px;
+          }
+          ul {
+            font-size: 20px;
+
+            li {
+              line-height: 2rem;
+            }
+          }
+        }
+        > img {
+          width: 100%;
+        }
+      }
+    }
     .column-article-section {
       display: flex;
       align-items: center;
@@ -1156,6 +1217,37 @@ h1 {
 
 @media screen and (max-width: 1280px) {
   .home-container {
+    .home-container-body {
+      max-width: 95%;
+
+      .parallax-section {
+        height: 56vh;
+
+        .parallax-section-article {
+          .parallax-article-block {
+            max-width: 50%;
+
+            h1 {
+              font-size: 32px;
+            }
+            ul {
+              font-size: 16px;
+            }
+          }
+          > img {
+            width: 100%;
+          }
+        }
+      }
+      .column-article-section {
+        .column-article {
+          > p {
+            font-size: 18px;
+            line-height: 1.5rem;
+          }
+        }
+      }
+    }
     .home-container-footer {
       .home-container-footer-article {
         flex-wrap: wrap;
@@ -1215,52 +1307,57 @@ h1 {
           }
         }
       }
-      .copyright-container {
-        color: #888;
-        font-size: 12px;
-        display: flex;
-        align-items: center;
-        padding: var(--spacing-m);
-        justify-content: center;
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .home-container {
+    .home-container-body {
+      .column-article-section {
+        flex-wrap: wrap;
+        margin-bottom: 40px;
 
-        a {
-          display: inline-block;
-          margin-left: 30px;
-
-          &:hover {
-            color: #b9bcbf;
-            text-decoration: underline;
+        &:nth-of-type(odd),
+        &:nth-of-type(even) {
+          flex-direction: column-reverse;
+        }
+        .column-article,
+        .column-img {
+          width: 100%;
+        }
+        .column-article {
+          > p {
+            max-width: 100%;
+            line-height: 2rem;
+            padding: 20px 0;
           }
         }
-        .zone-select-container {
-          position: relative;
-          margin-left: auto;
-
-          &::before {
-            content: "";
-            width: 20px;
-            height: 20px;
-            display: block;
-            background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHZlcnNpb249IjEuMSIgaWQ9IkNhcGFfMSIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSI1MTJweCIgaGVpZ2h0PSI1MTJweCIgdmlld0JveD0iMCAwIDQ0NC44MTkgNDQ0LjgxOSIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNDQ0LjgxOSA0NDQuODE5OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxnPgoJPHBhdGggZD0iTTQzNC4yNTIsMTE0LjIwM2wtMjEuNDA5LTIxLjQxNmMtNy40MTktNy4wNC0xNi4wODQtMTAuNTYxLTI1Ljk3NS0xMC41NjFjLTEwLjA5NSwwLTE4LjY1NywzLjUyMS0yNS43LDEwLjU2MSAgIEwyMjIuNDEsMjMxLjU0OUw4My42NTMsOTIuNzkxYy03LjA0Mi03LjA0LTE1LjYwNi0xMC41NjEtMjUuNjk3LTEwLjU2MWMtOS44OTYsMC0xOC41NTksMy41MjEtMjUuOTc5LDEwLjU2MWwtMjEuMTI4LDIxLjQxNiAgIEMzLjYxNSwxMjEuNDM2LDAsMTMwLjA5OSwwLDE0MC4xODhjMCwxMC4yNzcsMy42MTksMTguODQyLDEwLjg0OCwyNS42OTNsMTg1Ljg2NCwxODUuODY1YzYuODU1LDcuMjMsMTUuNDE2LDEwLjg0OCwyNS42OTcsMTAuODQ4ICAgYzEwLjA4OCwwLDE4Ljc1LTMuNjE3LDI1Ljk3Ny0xMC44NDhsMTg1Ljg2NS0xODUuODY1YzcuMDQzLTcuMDQ0LDEwLjU2Ny0xNS42MDgsMTAuNTY3LTI1LjY5MyAgIEM0NDQuODE5LDEzMC4yODcsNDQxLjI5NSwxMjEuNjI5LDQzNC4yNTIsMTE0LjIwM3oiIGZpbGw9IiM3MzdkODIiLz4KPC9nPgo8L3N2Zz4K)
-              100%/10px no-repeat;
-            position: absolute;
-            z-index: 2;
-            right: 4px;
-            top: -2px;
-            pointer-events: none;
+        .column-img {
+          > img {
+            width: 100%;
           }
-          select {
-            background-color: #323237;
-            outline: none;
-            border: none;
-            color: #fff;
+        }
+      }
+      .parallax-section {
+        height: 500px;
+
+        .parallax-section-article {
+          .parallax-article-block {
+            h1 {
+              font-size: 24px;
+            }
+            ul {
+              display: none;
+            }
+          }
+          > img {
+            width: 150%;
           }
         }
       }
     }
   }
 }
-
 @media screen and (max-width: 480px) {
   .home-container {
     .home-container-footer {

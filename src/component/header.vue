@@ -121,7 +121,7 @@ export default {
   .bm-burger-button {
     top: 50%;
     transform: translateY(-50%);
-    display: none;
+    display: block;
   }
   .hasbg {
     .bm-burger-bars {
@@ -137,16 +137,17 @@ export default {
   }
 }
 
-@media screen and (max-width: 1280px) {
-  .header-container-inner {
-    .bm-burger-button {
-      top: 50%;
-      transform: translateY(-50%);
-      display: block;
-    }
-    .hasbg {
-      .bm-burger-bars {
-        background-color: #fff;
+@media screen and (max-width: 768px) {
+  .header-container {
+    .header-container-inner {
+      .img-logo {
+        max-width: 120px;
+      }
+      > ul {
+        display: none;
+      }
+      .bm-burger-button {
+        transform: translateY(-50%) scale(0.8);
       }
     }
   }
@@ -213,6 +214,9 @@ export default {
 @media screen and (max-width: 1280px) {
   .header-container {
     .header-container-inner {
+      .img-logo {
+        max-width: 150px;
+      }
       > ul {
         display: none;
       }

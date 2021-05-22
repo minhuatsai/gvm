@@ -50,6 +50,20 @@ h6 {
 // 取代boostrap樣式
 ul.slick-dots {
   bottom: 10px;
+  li {
+    &.slick-active {
+      button:hover::before,
+      button:focus:before {
+        opacity: 1 !important;
+      }
+    }
+    button:hover::before {
+      opacity: 0.75 !important;
+    }
+    button:focus:before {
+      opacity: 0.25 !important;
+    }
+  }
 }
 .animation-fadein {
   animation: fadeIn 0.5s forwards;
