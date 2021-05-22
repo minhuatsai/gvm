@@ -121,6 +121,7 @@ export default {
   .bm-burger-button {
     top: 50%;
     transform: translateY(-50%);
+    display: none;
   }
   .hasbg {
     .bm-burger-bars {
@@ -132,6 +133,21 @@ export default {
   &:hover {
     .bm-burger-bars {
       background-color: #fff;
+    }
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .header-container-inner {
+    .bm-burger-button {
+      top: 50%;
+      transform: translateY(-50%);
+      display: block;
+    }
+    .hasbg {
+      .bm-burger-bars {
+        background-color: #fff;
+      }
     }
   }
 }
@@ -189,6 +205,16 @@ export default {
           height: 60px;
           font-weight: bold;
         }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .header-container {
+    .header-container-inner {
+      > ul {
+        display: none;
       }
     }
   }
