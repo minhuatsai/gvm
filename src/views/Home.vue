@@ -84,7 +84,12 @@
             v-for="(listItem, listIndex) in columnArticleData"
             :key="'column-article' + listIndex"
           >
-            <div class="column-article">
+            <div
+              class="column-article"
+              data-aos="flip-left"
+              data-aos-duration="1000"
+              data-aos-delay="200"
+            >
               <p>
                 {{ listItem.article }}
               </p>

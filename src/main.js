@@ -6,6 +6,9 @@ import VueScrollTo from "vue-scrollto";
 import VueParallaxJs from "vue-parallax-js";
 import "vue-awesome/icons/flag";
 import "vue-awesome/icons";
+import AOS from "aos";
+import "aos/dist/aos.css";
+Vue.use(AOS);
 
 Vue.config.productionTip = false;
 Vue.use(VueParallaxJs);
@@ -25,5 +28,8 @@ Vue.use(VueScrollTo, {
 });
 new Vue({
   router,
+  created() {
+    AOS.init();
+  },
   render: (h) => h(App),
 }).$mount("#app");
