@@ -12,7 +12,9 @@
   --font-family-italic: "Graphik Italic", "PingFang TC", "Noto Sans TC",
     "sans-serif";
 }
-
+* {
+  box-sizing: border-box;
+}
 body {
   margin: 0;
   background-color: #f8f8f8;

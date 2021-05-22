@@ -3,9 +3,12 @@ import App from "./App.vue";
 import router from "./router";
 import Icon from "vue-awesome/components/Icon";
 import VueScrollTo from "vue-scrollto";
+import VueParallaxJs from "vue-parallax-js";
 import "vue-awesome/icons/flag";
 import "vue-awesome/icons";
+
 Vue.config.productionTip = false;
+Vue.use(VueParallaxJs);
 Vue.component("v-icon", Icon);
 Vue.use(VueScrollTo, {
   container: "body",

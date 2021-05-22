@@ -13,9 +13,11 @@
     "vue-awesome": "^4.3.1",
     "vue-burger-menu": "^2.0.5",
     "vue-cli-plugin-pug": "^2.0.0",
+    "vue-parallax-js": "^0.2.3",
     "vue-router": "^3.2.0",
     "vue-scrollto": "^2.20.0",
-    "vue-slick-carousel": "^1.0.6"
+    "vue-slick-carousel": "^1.0.6",
+    "vue-wow": "^1.2.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -30,6 +32,7 @@
     "prettier": "^2.2.1",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
+    "vue-lottie": "^0.2.1",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
